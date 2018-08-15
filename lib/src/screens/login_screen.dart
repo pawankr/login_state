@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../mixins/validation_mixin.dart';
 
 class LoginScreen extends StatefulWidget{
   createState(){
@@ -6,7 +7,7 @@ class LoginScreen extends StatefulWidget{
   }
 }
 
-class LoginScreenState extends State<LoginScreen>{
+class LoginScreenState extends State<LoginScreen> with ValidationMixin {
   final formKey = GlobalKey<FormState>();
 
   String email;
@@ -35,13 +36,19 @@ class LoginScreenState extends State<LoginScreen>{
         labelText: 'Email Address',
         hintText: 'your_mail@example.com',
       ),
-      validator: (String value) {
-        //return null if valid
-        //otherwise string (with the error msg) if invalid
-        if (!value.contains('@')) {
-          return 'Please enter a valid email';
-        }
-      },
+      
+      
+      /// Singleton method for validating Input///
+      // validator: (String value) {
+      //   //return null if valid
+      //   //otherwise string (with the error msg) if invalid
+      //   if (!value.contains('@')) {
+      //     return 'Please enter a valid email';
+      //   }
+
+
+      /// Mixin Validation method alternative to the above singleton
+      validator: validateEmail,
       onSaved: (String value) {
       email = value;
       },
@@ -65,11 +72,16 @@ class LoginScreenState extends State<LoginScreen>{
     //     hintText: 'Password',
       ),
     // ),
-    validator: (String value) {
-      if (value.length < 4) {
-        return 'Password must be atleast 4 characters';
-      }
-    },
+    /// Mixin Validation method alternative to the below singleton
+    validator: validatePassword,
+
+
+    /// Singleton method for validating Input///
+    // validator: (String value) {
+    //   if (value.length < 4) {
+    //     return 'Password must be atleast 4 characters';
+    //   }
+    // },
     onSaved: (String value) {
       password = value;
       },
