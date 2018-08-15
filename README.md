@@ -1,6 +1,6 @@
 # login_stateful
 
-A new Flutter project.
+A new Flutter project to get a login page App.
 
 ## Getting Started
 
